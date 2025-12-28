@@ -1,0 +1,37 @@
+const products = [
+    // VEGETABLES (20 Items)
+    { id: 1, name: "Potato", category: "Vegetables", price: 30, unit: "1 kg", color: "#d2b48c", keywords: ["aloo", "batata", "आलू"] },
+    { id: 2, name: "Onion", category: "Vegetables", price: 40, unit: "1 kg", color: "#e0115f", keywords: ["pyaz", "kanda", "प्याज"] },
+    { id: 3, name: "Tomato", category: "Vegetables", price: 55, unit: "1 kg", color: "#ff6347", keywords: ["tamatar", "टमाटर"] },
+    { id: 4, name: "Ginger", category: "Vegetables", price: 20, unit: "100g", color: "#e1c699", keywords: ["adrak", "अदरक"] },
+    { id: 5, name: "Garlic", category: "Vegetables", price: 50, unit: "250g", color: "#f5f5f5", keywords: ["lehsun", "लहसुन"] },
+    { id: 6, name: "Carrot", category: "Vegetables", price: 40, unit: "500g", color: "#ed9121", keywords: ["gajar", "गाजर"] },
+    { id: 7, name: "Green Chilli", category: "Vegetables", price: 15, unit: "100g", color: "#228b22", keywords: ["mirchi", "mirch", "मिर्च"] },
+    { id: 8, name: "Coriander", category: "Vegetables", price: 10, unit: "1 bundle", color: "#32cd32", keywords: ["dhaniya", "धनिया"] },
+    { id: 9, name: "Lemon", category: "Vegetables", price: 20, unit: "250g", color: "#fff44f", keywords: ["nimbu", "नींबू"] },
+    { id: 10, name: "Cauliflower", category: "Vegetables", price: 45, unit: "1 unit", color: "#f0f0f0", keywords: ["gobhi", "phool gobhi", "गोभी"] },
+    { id: 11, name: "Cabbage", category: "Vegetables", price: 30, unit: "1 unit", color: "#98fb98", keywords: ["patta gobhi", "पत्ता गोभी"] },
+    { id: 12, name: "Brinjal", category: "Vegetables", price: 35, unit: "500g", color: "#4b0082", keywords: ["baigan", "bhanta", "बैंगन"] },
+    { id: 13, name: "Lady Finger", category: "Vegetables", price: 40, unit: "500g", color: "#466d1d", keywords: ["bhindi", "भिंडी"] },
+    { id: 14, name: "Bottle Gourd", category: "Vegetables", price: 25, unit: "1 unit", color: "#b9e185", keywords: ["lauki", "लौकी"] },
+    { id: 15, name: "Bitter Gourd", category: "Vegetables", price: 30, unit: "500g", color: "#006400", keywords: ["karela", "करेला"] },
+    { id: 16, name: "Spinach", category: "Vegetables", price: 20, unit: "1 bundle", color: "#2e8b57", keywords: ["palak", "पालक"] },
+    { id: 17, name: "Cucumber", category: "Vegetables", price: 30, unit: "500g", color: "#76ff7a", keywords: ["kheera", "खीरा"] },
+    { id: 18, name: "Pumpkin", category: "Vegetables", price: 25, unit: "1 kg", color: "#ff7518", keywords: ["kaddu", "कद्दू"] },
+    { id: 19, name: "Radish", category: "Vegetables", price: 20, unit: "500g", color: "#f0f8ff", keywords: ["mooli", "मूली"] },
+    { id: 20, name: "Capsicum", category: "Vegetables", price: 40, unit: "250g", color: "#00a86b", keywords: ["shimla mirch", "शिमला मिर्च"] },
+
+    // FRUITS (12 Items)
+    { id: 21, name: "Apple", category: "Fruits", price: 180, unit: "1 kg", color: "#ff0800", keywords: ["seb", "apple", "सेब"] },
+    { id: 22, name: "Banana", category: "Fruits", price: 60, unit: "1 dozen", color: "#ffe135", keywords: ["kela", "banana", "केला"] },
+    { id: 23, name: "Mango", category: "Fruits", price: 150, unit: "1 kg", color: "#ff8243", keywords: ["aam", "mango", "आम"] },
+    { id: 24, name: "Papaya", category: "Fruits", price: 40, unit: "1 kg", color: "#feb06a", keywords: ["papita", "पपीता"] },
+    { id: 25, name: "Orange", category: "Fruits", price: 80, unit: "1 kg", color: "#ffa500", keywords: ["santra", "santala", "संतरा"] },
+    { id: 26, name: "Grapes", category: "Fruits", price: 100, unit: "1 kg", color: "#6f2da8", keywords: ["angoor", "अंगूर"] },
+    { id: 27, name: "Pomegranate", category: "Fruits", price: 140, unit: "1 kg", color: "#c0392b", keywords: ["anaar", "अनार"] },
+    { id: 28, name: "Guava", category: "Fruits", price: 50, unit: "1 kg", color: "#98fb98", keywords: ["amrood", "bihi", "अमरूद"] },
+    { id: 29, name: "Watermelon", category: "Fruits", price: 30, unit: "1 kg", color: "#fc6c85", keywords: ["tarbooj", "तरबूज"] },
+    { id: 30, name: "Pineapple", category: "Fruits", price: 60, unit: "1 unit", color: "#f3e5ab", keywords: ["ananash", "अनानास"] },
+    { id: 31, name: "Coconut", category: "Fruits", price: 40, unit: "1 unit", color: "#f5f5dc", keywords: ["nariyal", "नारियल"] },
+    { id: 32, name: "Kiwi", category: "Fruits", price: 120, unit: "3 units", color: "#8ee53f", keywords: ["kiwi", "कीवी"] }
+];

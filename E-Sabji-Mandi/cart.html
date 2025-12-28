@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Basket | E-Sabji Mandi</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1 onclick="window.location.href='index.html'" style="cursor:pointer">E-Sabji <span style="color: var(--accent);">Mandi</span></h1>
+        <div id="cart-status" style="font-weight:bold;">🛒 Review Items</div>
+    </header>
+
+    <main style="padding: 20px 5%; max-width: 600px; margin: 0 auto;">
+        <h2 style="text-align:center; font-size: 2.5rem; color: var(--dark-green);">YOUR BASKET</h2>
+        
+        <div id="cart-items-container"></div>
+
+        <div id="recommendation-section" style="margin-top: 30px; background: #fff; padding: 15px; border-radius: 15px; display:none; border: 1px solid var(--accent);">
+            <h4 style="margin: 0 0 10px 0; color: var(--primary);">Smart Suggestion (अक्सर साथ खरीदे जाते हैं):</h4>
+            <div id="recommendation-list" style="display: flex; gap: 10px; overflow-x: auto;"></div>
+        </div>
+
+        <div id="cart-summary" style="margin-top: 30px; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <div style="display:flex; justify-content:space-between; font-size:1.5rem; font-weight:bold; margin-bottom: 20px;">
+                <span>Total Amount:</span>
+                <span>₹<span id="grand-total">0</span></span>
+            </div>
+            <button class="add-btn" style="width: 100%; padding: 18px; font-size: 1.2rem;" onclick="window.location.href='address.html'">
+                Proceed to Checkout
+            </button>
+            <p onclick="clearCart()" style="text-align: center; color: #8b0000; margin-top: 15px; cursor: pointer; font-size: 0.9rem;">Clear All Items</p>
+        </div>
+    </main>
+
+    <script src="js/products.js"></script>
+    <script>
+        let cart = JSON.parse(localStorage.getItem('esabji_cart')) || [];
+
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const totalEl = document.getElementById('grand-total');
+            let total = 0;
+            container.innerHTML = "";
+
+            if (cart.length === 0) {
+                container.innerHTML = "<div style='text-align:center; padding: 40px;'>Your basket is empty! <br><br> <button class='add-btn' onclick='window.location.href=\"index.html\"'>Go Shop</button></div>";
+                document.getElementById('cart-summary').style.display = "none";
+                document.getElementById('recommendation-section').style.display = "none";
+                return;
+            }
+
+            document.getElementById('cart-summary').style.display = "block";
+
+            cart.forEach((item) => {
+                const itemPrice = parseFloat(item.price) || 0;
+                const itemQty = parseInt(item.quantity) || 0;
+                const itemTotal = itemPrice * itemQty;
+                total += itemTotal;
+
+                container.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:white; padding:15px; border-radius:12px; margin-bottom:12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <div style="width:40px; height:40px; background:${item.color}; border-radius:8px; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">${item.name[0]}</div>
+                            <div><strong>${item.name}</strong><br><small style="color:gray;">₹${item.price}/${item.unit}</small></div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <div style="display:flex; align-items:center; background:#f0f5eb; border-radius:8px; padding:5px; border:1px solid var(--primary);">
+                                <button onclick="updateQty(${item.id}, -1)" style="border:none; background:none; cursor:pointer; padding: 0 10px; color: var(--primary); font-weight:bold;">−</button>
+                                <span style="font-weight:bold;">${itemQty}</span>
+                                <button onclick="updateQty(${item.id}, 1)" style="border:none; background:none; cursor:pointer; padding: 0 10px; color: var(--primary); font-weight:bold;">+</button>
+                            </div>
+                            <span style="font-weight:bold; min-width: 60px; text-align:right;">₹${itemTotal}</span>
+                        </div>
+                    </div>`;
+            });
+            totalEl.innerText = total.toFixed(0);
+            showRecommendations();
+        }
+
+        function updateQty(id, delta) {
+            const index = cart.findIndex(item => item.id === id);
+            if (index !== -1) {
+                cart[index].quantity += delta;
+                if (cart[index].quantity <= 0) cart.splice(index, 1);
+                localStorage.setItem('esabji_cart', JSON.stringify(cart));
+                renderCart();
+            }
+        }
+
+        function clearCart() {
+            if(confirm("Are you sure you want to empty your basket?")) {
+                localStorage.removeItem('esabji_cart');
+                cart = [];
+                renderCart();
+            }
+        }
+
+        function showRecommendations() {
+            const recList = document.getElementById('recommendation-list');
+            const recSection = document.getElementById('recommendation-section');
+            let suggestedNames = [];
+
+            // Simple pairing logic
+            const pairings = { "Potato": ["Onion", "Tomato"], "Tomato": ["Ginger", "Onion"], "Apple": ["Banana"] };
+
+            cart.forEach(item => {
+                if (pairings[item.name]) suggestedNames.push(...pairings[item.name]);
+            });
+
+            const filteredRecs = [...new Set(suggestedNames)].filter(name => 
+                !cart.some(c => c.name === name)
+            );
+
+            if (filteredRecs.length > 0) {
+                recSection.style.display = "block";
+                recList.innerHTML = filteredRecs.map(name => {
+                    const p = products.find(prod => prod.name === name);
+                    if (!p) return '';
+                    return `
+                    <div onclick="quickAdd(${p.id})" style="min-width:110px; background:#f0f5eb; padding:10px; border-radius:10px; text-align:center; cursor:pointer; border: 1px solid #ddd;">
+                        <small style="display:block; margin-bottom:5px;">${p.name}</small>
+                        <strong style="color:var(--primary);">+ Add ₹${p.price}</strong>
+                    </div>`;
+                }).join('');
+            } else {
+                recSection.style.display = "none";
+            }
+        }
+
+        function quickAdd(id) {
+            const p = products.find(prod => prod.id === id);
+            if (p) {
+                cart.push({...p, quantity: 1});
+                localStorage.setItem('esabji_cart', JSON.stringify(cart));
+                renderCart();
+            }
+        }
+
+        renderCart();
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile | E-Sabji Mandi</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background: var(--beige);">
+    <header class="main-header">
+        <h1 onclick="window.location.href='index.html'" style="cursor:pointer">E-Sabji <span style="color: var(--accent);">Mandi</span></h1>
+    </header>
+
+    <main style="max-width: 600px; margin: 40px auto; padding: 20px;">
+        <div style="background:white; padding:30px; border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
+            <h2 style="color:var(--dark-green); border-bottom: 2px solid var(--beige); padding-bottom:10px;">👤 Customer Profile</h2>
+            
+            <div style="margin-top:25px; padding:20px; border:1px solid #eee; border-radius:15px; background: #fafafa;">
+                <h4 style="margin:0 0 10px 0;">Delivery Address</h4>
+                <p id="profile-address" style="color:gray; font-size:0.95rem;">No address saved yet.</p>
+                <button onclick="window.location.href='address.html'" class="add-btn" style="padding:8px 15px; font-size:0.85rem; margin-top:10px;">Edit Address</button>
+            </div>
+
+            <div style="margin-top:35px;">
+                <h4 style="margin-bottom:15px;">Order History</h4>
+                <div id="order-history" style="border-top: 1px solid #eee; padding-top:15px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:#f9f9f9; padding:15px; border-radius:10px; margin-bottom:10px;">
+                        <div>
+                            <strong>Order #ESM-9912</strong><br>
+                            <small style="color:gray;">24 Dec 2025 • ₹240</small>
+                        </div>
+                        <button class="add-btn" style="padding:5px 12px; font-size:0.8rem; background:var(--accent);">Reorder</button>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="localStorage.clear(); window.location.href='index.html'" style="margin-top:40px; background:none; border:none; color:red; cursor:pointer; font-weight:bold; width:100%;">Logout</button>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('profile-address').innerText = localStorage.getItem('user_address') || "Please add an address in Bhilai-Durg.";
+    </script>
+</body>
+</html>
